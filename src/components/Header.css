@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header_main {
+  background-color: #282c34;
+  display: flex;  
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  border-right-width: 20px;
+
+}
+.header_main .hrcLogo {
+  position: absolute;
+  top: 0px;
+  left: 42%;
+  width: 225px;
+  height: 54px;
+}
+
+.header_main .logo img,
+.header_main .hrcLogo img {
+  height: 3.2vw;
+}
+
+.header_main h2 {
+  padding-top: 5px;
+  margin-left: 10px;
+  padding-top: 6px;
+  color: rgb(255, 255, 255);
+  font-size: 2em;
+  font-family: "Times New Roman", Times, serif;
+}

@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import Buttons from './components/Buttons';
+import Footer from './components/Footer';
+import DataTable from './components/DataTable';
+import { useState } from 'react';
 
 function App() {
+  const [editData,setEditData] = useState({
+    invoiceCurrency: '',
+    customerPaymentTerms:''
+  });
+
+  const editDataHandler = (invc,cuspt) => {
+    setEditData({...editData, invoiceCurrency: invc, customerPaymentTerms:cuspt});
+    console.log('editData from app.js', editData);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header className="App-header"/>
+      <Buttons editDialogData={editData}/>
+      <DataTable onCheckboxClicked={editDataHandler}/>
+      <Footer/>
     </div>
   );
 }
