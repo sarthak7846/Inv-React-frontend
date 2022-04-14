@@ -234,7 +234,7 @@ const DataTable = (props) => {
                   onClick={() => props.onCheckboxClicked(row.InvoiceCurrency,row.CustomerPaymentTerms,row.DocID, isItemSelected)}/>
               </TableCell>
               <TableCell component="th" id={labelId} scope="row">
-                {++index}
+                {row.id}
               </TableCell>
               <TableCell align="left">{row.BusinessCode}</TableCell>
               <TableCell align="left">{row.CustomerNumber}</TableCell>
