@@ -5,19 +5,31 @@ import InputBase from '@mui/material/InputBase';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
+import { editInvoice } from '../services/data';
 
 const EditDialog = (props) => {
-    // const [editData, setEditData] = useState({
-    //   invoiceCurrency: editDataFromCheckbox.invoiceCurrency,
-    //   customerPaymentTerms:editDataFromCheckbox.customerPaymentTerms
-    // });
+    const [editData,setEditData] = useState(props.editButtonDialogData);
 
-    const onChangeHandler = () => {
+    useEffect(() => {
+      setEditData(props.editButtonDialogData);
+    },[props.editButtonDialogData]);
 
+    const onChangeHandler = (event) => {
+      const {name, value} = event.target;
+      setEditData({...editData,[name]: value});
     };
 
-    const submitHandler = () => {
-
+    const submitHandler =async (e) => {
+      e.preventDefault();
+      console.log('editbuttondialogdaata',props.editButtonDialogData);
+      console.log('editstate',editData);
+      const response =await editInvoice(editData);
+      if(response.data.update === true) {
+        alert("Data updated successfully");
+      } else {
+        alert("Something went wrong. Check console.");
+      }    
+      window.location.reload();
     };
 
   return <div>
@@ -25,8 +37,8 @@ const EditDialog = (props) => {
         <DialogTitle sx={{backgroundColor: "#282c34", color: "white"}}>Edit</DialogTitle>
         <DialogContent sx={{backgroundColor: "#282c34"}}>
           <form id="addForm" onSubmit={submitHandler}>
-          <InputBase name="InvoiceCurrency" value={props.editButtonDialogData.invoiceCurrency}  onChange={onChangeHandler} required sx={{backgroundColor: "white", borderRadius:"5px", ml: 1, padding: "0px 5px", margin: "0px 20px 20px 20px" ,textAlign: "center"}} placeholder="Invoice Currency"/>     
-          <InputBase name="CustomerPaymentTerms" value={props.editButtonDialogData.customerPaymentTerms}  onChange={onChangeHandler} required sx={{backgroundColor: "white", borderRadius:"5px", ml: 1, padding: "0px 5px",  margin: "0px 20px 20px 20px" , textAlign: "center"}} placeholder="Customer Payment Terms"/>
+          <InputBase name="invoiceCurrency" value={editData.invoiceCurrency}  onChange={onChangeHandler}  sx={{backgroundColor: "white", borderRadius:"5px", ml: 1, padding: "0px 5px", margin: "0px 20px 20px 20px" ,textAlign: "center"}} placeholder="Invoice Currency"/>     
+          <InputBase name="customerPaymentTerms" value={editData.customerPaymentTerms}  onChange={onChangeHandler}  sx={{backgroundColor: "white", borderRadius:"5px", ml: 1, padding: "0px 5px",  margin: "0px 20px 20px 20px" , textAlign: "center"}} placeholder="Customer Payment Terms"/>
           
           </form>
         </DialogContent>

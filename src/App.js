@@ -8,12 +8,25 @@ import { useState } from 'react';
 function App() {
   const [editData,setEditData] = useState({
     invoiceCurrency: '',
-    customerPaymentTerms:''
+    customerPaymentTerms:'',
+    docID: ''
   });
 
-  const editDataHandler = (invc,cuspt) => {
-    setEditData({...editData, invoiceCurrency: invc, customerPaymentTerms:cuspt});
-    console.log('editData from app.js', editData);
+  // const [deleteIDs,setDeleteIDs] = useState([]);
+
+  const editDataHandler = (invc,cuspt,docid, isItemSelected) => {
+    // console.log('isItemSelected',isItemSelected);
+    setEditData({...editData, invoiceCurrency: invc, customerPaymentTerms:cuspt,docID:docid});
+    // let IDPresent=false;
+    // deleteIDs.map((id) => {
+    //   if(id === docid) {
+    //     IDPresent=true;
+    //   }
+    // });
+    // if(!IDPresent && !isItemSelected) {
+    //   setDeleteIDs(currentArray => [...currentArray, docid]);
+    // }
+    // console.log('deleteIDs',deleteIDs);
   }
 
   return (

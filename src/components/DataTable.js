@@ -16,7 +16,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import TableHead from "@mui/material/TableHead";
 import { useEffect, useState } from "react";
-import { getData } from "../services/data";
+import { getData, slNoEnumerator } from "../services/data";
 import { Checkbox } from "@mui/material";
 
 function TablePaginationActions(props) {
@@ -231,10 +231,10 @@ const DataTable = (props) => {
                   color="primary"
                   checked={isItemSelected}
                   inputProps={{"aria-labelledby":labelId}}
-                  onClick={() => props.onCheckboxClicked(row.InvoiceCurrency,row.CustomerPaymentTerms)}/>
+                  onClick={() => props.onCheckboxClicked(row.InvoiceCurrency,row.CustomerPaymentTerms,row.DocID, isItemSelected)}/>
               </TableCell>
               <TableCell component="th" id={labelId} scope="row">
-                {row.id}
+                {++index}
               </TableCell>
               <TableCell align="left">{row.BusinessCode}</TableCell>
               <TableCell align="left">{row.CustomerNumber}</TableCell>

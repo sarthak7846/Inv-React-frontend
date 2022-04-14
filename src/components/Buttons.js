@@ -2,11 +2,14 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import InputBase from '@mui/material/InputBase';
+import ReplayIcon from '@mui/icons-material/Replay';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import AddDialog from "./AddDialog";
 import { useState } from "react";
 import EditDialog from "./EditDialog";
+import DeleteDialog from "./DeleteDialog";
+import { IconButton } from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -18,11 +21,11 @@ const theme = createTheme({
   },
 });
 
-
-
 const Buttons = (props) => {
   const [addButtonShow, setAddButtonDialog] = useState(false);
   const [editButtonShow,setEditButtonDialog] = useState(false);
+  const [deleteButtonShow, setDeleteButtonDialog] = useState(false);
+  const [searchData,setSearchData] = useState("");
 
   const addButtonClickHandler = () => {
     setAddButtonDialog(true);
@@ -39,6 +42,19 @@ const Buttons = (props) => {
   const editButtonDialogClose = () => {
     setEditButtonDialog(false);
   }
+
+  const deleteButtonClickHandler = () => {
+    setDeleteButtonDialog(true);
+  }
+
+  const deleteButtonDialogClose = () => {
+    setDeleteButtonDialog(false);
+  }
+
+  const searchInputChangeHandler = (e) => {
+    console.log('search in',e.target.value);
+    setSearchData(e.target.value);
+  };
 
   const searchButtons = [
     <ThemeProvider theme={theme}>
@@ -90,6 +106,7 @@ const Buttons = (props) => {
         sx={{ color: "white", padding: "4px 70px", fontWeight: "550" }}
         variant="outlined"
         key="advancedSearch"
+        onClick={deleteButtonClickHandler}
       >
         DELETE
       </Button>
@@ -114,7 +131,7 @@ const Buttons = (props) => {
         >
           {searchButtons}
         </ButtonGroup>
-        <InputBase sx={{backgroundColor: "white", borderRadius:"10px", ml: 1, padding: "0px 5px", textAlign: "center"}} placeholder="Search Customer Id"/>
+        <InputBase value={searchData} onChange={searchInputChangeHandler} sx={{backgroundColor: "white", borderRadius:"10px", ml: 1, padding: "0px 5px", textAlign: "center"}} placeholder="Search Customer Id"/>
         <ButtonGroup
           sx={{ marginLeft: "65px",  marginRight: "20px"}}
           size="small"
@@ -125,6 +142,7 @@ const Buttons = (props) => {
       </Box>
       <AddDialog open={addButtonShow} addButtonDialogClose={addButtonDialogClose}/>
       <EditDialog open={editButtonShow} editButtonDialogData={props.editDialogData} editButtonDialogClose={editButtonDialogClose}/>
+       <DeleteDialog open={deleteButtonShow} deleteDialogData={props.editDialogData.docID} deleteButtonDialogClose={deleteButtonDialogClose}/>
     </>
   );
 };

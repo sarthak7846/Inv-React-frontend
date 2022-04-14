@@ -25,3 +25,28 @@ export const addNewInvoice = async (invoiceData) => {
       }
    }));
 }
+
+export const editInvoice = async (editInvoiceData) => {
+   console.log('invoice data', editInvoiceData.docID);
+   return (await axios.post('http://localhost:8080/DemoApp/UpdateInvoice',null, {
+      params: {
+         "invoiceCurrency":editInvoiceData.invoiceCurrency,
+         "customerPaymentTerms":editInvoiceData.customerPaymentTerms,
+         "docID":editInvoiceData.docID,
+         headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+         }
+      }
+   }));
+}
+
+export const deleteInvoice = async (deleteInvoiceID) => {
+   return (await axios.post('http://localhost:8080/DemoApp/DeleteInvoice',null,{
+      params: {
+         "docID": deleteInvoiceID,
+         headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+         }
+      }
+   }));
+}
